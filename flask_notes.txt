@@ -1,0 +1,193 @@
+What is Flask?
+Flask is a web application framework written in Python. You can build websites using Python.
+It is designed as a web framework for RESTful API development.
+Armin Ronacher, who leads an international group of Python enthusiasts named Pocco, develops it.
+Flask is based on Werkzeug WSGI toolkit and Jinja2 template engine. Both are Pocco projects.
+Jinja2 is a popular templating engine for Python. A web templating system combines a template with a certain data source to render dynamic web pages.
+----------------------------------------------------------------------------------------------------------
+What is Web Framework?
+Web Application Framework or simply Web Framework represents a collection of libraries and modules
+that enables a web application developer to write applications without having to bother about low-level details
+such as protocols, thread management etc. we need to  have hands-on experience on HTML and Python.
+------------------------------------------------------------------------------------------------------------
+what is API?
+An API (short for ‘Application Programming Interface’) is a software intermediary or layer that enables two applications to speak to one another.
+
+The developer creates the API on the server and allows the client to talk to it.
+
+As an example, every time you open up an app like Instagram to direct message someone or view a profile, 
+you’re using an API. Each time you do something on Instagram, your phone will send data to a server 
+over the internet.
+
+This data acts as a request (e.g., for information) to the server. 
+The server will then read your request and respond back to your phone with the data or information 
+it needs to carry out your task. The process managing the communication is the API.
+
+A simple analogy would be that of a restaurant. 
+You’re the customer and you want to order food from the kitchen (i.e., server). 
+You’ll call up a waiter (i.e., the API) to take your order to the back and, in turn, 
+the kitchen will ask the waiter to send the food to you.
+--------------------------------------------------------------------------------------------------------
+What is RESTful API?
+when we are using an app we request the data from the server using an API like we use instagram for searching a particular page or person information.
+we will get the response in the form of HTML page but do we need the response in the form of HTML page? NO.
+we need the response in a structured format rather than the webpage.
+the structure is usually json format or xml format.
+but for getting this structered output also we need to use lot of methods and procedures to retrieve the data from server.
+to avoid all this rest api came into picture.
+the rest api creates objects and sends the values in response to the requests of the clients.
+
+REST determines how the API looks like. It stands for “Representational State Transfer”. 
+It is a set of rules that developers follow when they create their API. 
+One of these rules states that you should be able to get a piece of data (called a resource) when you link to a specific URL.
+Each URL is called a request while the data sent back to you is called a response.
+
+This freedom and flexibility inherent in REST API design allow you to build an API that meets your needs 
+while also meeting the needs of very diverse customers. Unlike SOAP, REST is not constrained to XML, 
+but instead can return XML, JSON, YAML or any other format depending on what the client requests. 
+And unlike RPC, users aren’t required to know procedure names or specific parameters in a specific order.
+
+https://www.mulesoft.com/resources/api/what-is-rest-api-design
+https://techolution.com/types-of-apis/#:~:text=Today's%20developers%20use%20many%20different,to%20speak%20to%20one%20another.
+https://www.youtube.com/watch?v=rtWH70_MMHM
+-------------------------------------------------------------------------------------------------------------------
+#Flask Tutorial
+#remove the # and run the cell when you are using it executing flask first time on your system.
+#!pip install flask
+#Make sure to not call your application(name the python file) flask.py because this would conflict with Flask itself.
+----------------------------------------------------------------------------------------------------------------------------
+#importing the Flask class from flask library
+from flask import Flask
+#creating the app variable and setting it to  the instance of class Flask. 
+#__name__ is a special variable in python and is just a module.
+#__name__ is a built-in variable which evaluates to the name of the current module.
+#Thus it can be used to check whether the current script is being run on its own or being imported somewhere else.
+#This is needed so that Flask knows where to look for templates, static files, and so on.
+app=Flask(__name__)
+#We then use the route() decorator to tell Flask what URL should trigger our function.
+#"/" is just the root page of our website
+#if we start this application when we go to the home page we should see the output in the below function.
+
+@app.route('/')
+def hello_world():
+   return 'Hello World'
+app.run()
+------------------------------------------------------------------------------------------------------------------
+#http://127.0.0.1:5000/ is the local IP address of our machine where the output will be displayed
+#copy the ip adress and paste it in chrome
+#you can also replace 127.0.0.1 with name localhost to get the output
+##http://localhost:5000/
+
+-----------------------------------------------------------------------------------------------------------------------
+how to run flask application on command prompt?
+#change directory to the place where the file is stored then run below commands hello is the name of the python file where code is written
+set FLASK_APP=hello
+python -m flask run
+------------------------------------------------------------------------------------------------------------------------
+when we are working on flask app we do some changes and want to execute the python file,
+but for that we always need to restart the kernal or end the previous session.
+in order to avoid this we should create a debug mode in cmd using below command.
+
+set FLASK_DEBUG=1
+
+after running the above command when you change and save the code.
+go and refresh the webpage you can see the changes on the homepage.
+
+------------------------------------------------------------------------------------------------------------------------
+#we can also run on debug mode by directly changing the code in the python file.
+#__name__==__main__ if we run with python directly. but if we are import this module somewhere else then the name would be the name of our module.
+
+
+from flask import Flask
+app=Flask(__name__)
+@app.route('/')
+def hello_world():
+   return '<h1>Hello friends,how are you</h1> <h2> Take care of your self. </h2> <h3> this is it . </h3>'
+if '__name__'=='__main__':
+    app.run(debug=True)
+
+----------------------------------------------------------------------------------------------------------------------
+#Till now we only worked on one purpose that is hello world.
+#how can we use it for creating two functions for two different purposes in the same file.
+#execute the below command and refresh the webpage.
+# just add /name to the link to get the information in hello_name function on the webpage
+
+from flask import Flask
+app=Flask(__name__)
+
+@app.route('/')
+def hello_world():
+   return '<h1>Hello friends,how are you</h1> <h2> Take care of your self. </h2> <h3> this is it . </h3>'
+
+@app.route('/name')
+def hello_name():
+   return '<h1>Hello friends,how are you</h1> <h2> my name is sheshank </h2> <h3> what is your name? </h3>'
+
+
+if '__name__'=='__main__':
+    app.run(debug=True)
+-----------------------------------------------------------------------------------------------------------------
+
+#we can also use one single functin for handling two different routes for handling
+#add intro to the link on the webpage you can see the same output 
+
+
+from flask import Flask
+app=Flask(__name__)
+
+@app.route('/')
+@app.route('/intro')
+def hello_world():
+   return '<h1>Hello friends,how are you</h1> <h2> Take care of your self. </h2> <h3> this is it . </h3>'
+
+-----------------------------------------------------------------------------------------------------------
+#adding the name in the link which can be displayed as output
+#http://127.0.0.1:5000/user/sheshank
+#output will be "user sheshank"
+from flask import Flask
+app=Flask(__name__)
+from markupsafe import escape
+
+@app.route('/user/<username>')
+def show_user_profile(username):
+    # show the user profile for that user
+    return 'User %s' % escape(username)
+-------------------------------------------------------------------------------------------------------------
+
+#adding the name in the link which can be displayed as output
+#http://127.0.0.1:5000/post/1234
+#output will be "post 1234"
+from flask import Flask
+app=Flask(__name__)
+from markupsafe import escape
+
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return 'Post %d' % post_id
+
+----------------------------------------------------------------------------------------------------------
+
+
+#Unique URLs / Redirection Behavior
+#The following two rules differ in their use of a trailing slash.
+
+#http://127.0.0.1:5000/projects/
+#output will be "The project page"
+
+#http://127.0.0.1:5000/about
+#output will be "The about page"
+from flask import Flask
+app=Flask(__name__)
+from markupsafe import escape
+@app.route('/projects/')
+def projects():
+    return 'The project page'
+
+@app.route('/about')
+def about():
+    return 'The about page'
+
+-------------------------------------------------------------------------------------------------------------------
+
+
